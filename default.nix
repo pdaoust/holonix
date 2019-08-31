@@ -55,12 +55,6 @@ in
  shell = derivation-safe-holonix-shell;
  main = pkgs.stdenv.mkDerivation derivation-safe-holonix-shell;
 
- # needed for nix-env to discover install attributes
- holochain = {
-  hc = dist.cli.derivation;
-  holochain = dist.conductor.derivation;
- };
-
  # expose other things
  rust = rust;
 }
