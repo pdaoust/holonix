@@ -11,15 +11,10 @@ let
  pkgs = import ./nixpkgs;
 
  app-spec-cluster = pkgs.callPackage ./app-spec-cluster { };
- darwin = pkgs.callPackage ./darwin { };
  rust = pkgs.callPackage ./rust { };
- git = pkgs.callPackage ./git { };
  dist = pkgs.callPackage ./dist {
   rust = rust;
-  git = git;
  };
- n3h = pkgs.callPackage ./n3h { };
- qt = pkgs.callPackage ./qt { };
  release = pkgs.callPackage ./release {
   config = config;
  };
@@ -30,13 +25,7 @@ let
  holonix-shell = pkgs.callPackage ./nix-shell {
   pkgs = pkgs;
   app-spec-cluster = app-spec-cluster;
-  darwin = darwin;
   dist = dist;
-  git = git;
-  n3h = n3h;
-  node = node;
-  openssl = openssl;
-  qt = qt;
   release = release;
   rust = rust;
   test = test;
