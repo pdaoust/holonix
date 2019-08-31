@@ -7,7 +7,7 @@ with final;
     haskell.lib.justStaticExecutables previous.haskellPackages.github-release;
 
   holochain = {
-    hc = holochain-cli;
-    holochain = holochain-conductor;
+    hc = lib.warn "holochain.hc is deprecated, use holochain-cli" holochain-cli;
+    holochain = lib.warn "holochain.holochain is deprecated, use holochain-conductor" holochain-conductor;
   };
 }
