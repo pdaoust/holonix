@@ -48,7 +48,6 @@ let
  derivation-safe-holonix-shell = (removeAttrs holonix-shell ["override" "overrideDerivation"]);
 in
 {
- pkgs = pkgs;
  # export the set used to build shell alongside the main derivation
  # downstream devs can extend/override the shell as needed
  # holonix-shell provides canonical dev shell for generic work
