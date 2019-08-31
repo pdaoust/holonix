@@ -39,4 +39,11 @@ with final;
     echo "flushing binary artifacts from dist"
     rm -rf ./dist;
   '';
+
+  hn-rust-fmt = writeShellScriptBin "hn-rust-fmt" "cargo fmt";
+
+  hn-rust-fmt-check = writeShellScriptBin "hn-rust-fmt-check" ''
+    echo "checking rust formatting"
+    cargo fmt -- --check
+  '';
 }
