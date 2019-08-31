@@ -8,6 +8,7 @@ mkShell {
     git-hub
     github-release
     hn-node-flush
+    hn-rust-clippy
     hn-rust-flush
     qt59.qmake
     which
