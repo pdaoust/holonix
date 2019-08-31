@@ -20,7 +20,6 @@ let
  };
  n3h = pkgs.callPackage ./n3h { };
  node = pkgs.callPackage ./node { };
- openssl = pkgs.callPackage ./openssl { };
  qt = pkgs.callPackage ./qt { };
  release = pkgs.callPackage ./release {
   config = config;
