@@ -6,7 +6,7 @@ mkShell {
   buildInputs = [
     git
     git-hub
-    haskellPackages.github-release
+    github-release
     qt59.qmake
     which
   ];
