@@ -19,7 +19,6 @@ let
   git = git;
  };
  n3h = pkgs.callPackage ./n3h { };
- node = pkgs.callPackage ./node { };
  qt = pkgs.callPackage ./qt { };
  release = pkgs.callPackage ./release {
   config = config;
