@@ -12,4 +12,5 @@ with final;
   };
 
   hn-node-flush = callPackage ./hn-node-flush {};
+  hn-rust-flush = callPackage ./hn-rust-flush {};
 }
