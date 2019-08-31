@@ -7,6 +7,7 @@ mkShell {
     git
     git-hub
     github-release
+    hn-node-flush
     qt59.qmake
     which
   ];
