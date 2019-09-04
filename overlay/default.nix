@@ -11,6 +11,11 @@ with final;
     holochain = lib.warn "holochain.holochain is deprecated, use holochain-conductor" holochain-conductor;
   };
 
+  hn-flush = writeShellScriptBin "hn-flush" ''
+    hn-node-flush
+    hn-rust-flush
+  '';
+
   hn-node-flush = writeShellScriptBin "hn-node-flush" ''
     echo "flushing node artifacts"
     find . -wholename "**/node_modules" | xargs -I {} rm -rf {};
