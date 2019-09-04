@@ -4,6 +4,7 @@ with pkgs;
 
 mkShell {
   buildInputs = [
+    curl
     git
     git-hub
     github-release
