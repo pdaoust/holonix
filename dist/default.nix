@@ -24,14 +24,6 @@ in
  [
    pkgs.nix-prefetch-scripts
  ]
- ++ (pkgs.callPackage ./audit {
-  dist = config;
-  cli = cli;
-  conductor = conductor;
-  lib = lib;
-  rust = rust;
- }).buildInputs
-
  ++ (pkgs.callPackage ./dist { }).buildInputs
 
  ++ (pkgs.callPackage ./flush {
