@@ -24,6 +24,21 @@ with final;
       -D clippy::complexity -D clippy::perf -D clippy::correctness
   '';
 
+  # TODO: this is currently dead and segfaults
+  # @see https://github.com/xd009642/tarpaulin/issues/190
+  hc-rust-coverage = writeShellScriptBin "hn-rust-coverage" ''
+    cargo tarpaulin \
+      --all \
+      --ignore-tests \
+      --out Xml \
+      --timeout 600 \
+      -v \
+      -e hc \
+      -e hdk \
+      -e holochain_core_api_c_binding \
+      -e holochain_core_types_derive
+  '';
+
   hn-rust-flush = writeShellScriptBin "hn-rust-flush" ''
     echo "flushing cargo cache from user home directory"
     rm -rf ~/.cargo/registry;
