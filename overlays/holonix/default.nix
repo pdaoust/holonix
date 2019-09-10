@@ -82,6 +82,15 @@ with final;
     hc-rust-coverage-install && hc-rust-coverage && bash <(curl -s https://codecov.io/bash);
   '';
 
+  hn-release-hook-version-rust = writeShellScriptBin name "hn-release-hook-version-rust" ''
+    echo "bumping Cargo versions to ${config.release.version.current} in Cargo.toml"
+    find . \
+     -name "Cargo.toml" \
+     -not -path "**/.git/**" \
+     -not -path "**/.cargo/**" | xargs -I {} \
+     sed -i 's/^\s*version\s*=\s*"[0-9]\+.[0-9]\+.[0-9]\+\(-alpha[0-9]\+\)\?"\s*$/version = "${config.release.version.current}"/g' {}
+  '';
+
   hn-rust-flush = writeShellScriptBin "hn-rust-flush" ''
     echo "flushing cargo cache from user home directory"
     rm -rf ~/.cargo/registry;
@@ -108,4 +117,5 @@ with final;
   hc-rust-test = pkgs.writeShellScriptBin "hc-rust-test" ''
     hc-rust-wasm-compile && HC_SIMPLE_LOGGER_MUTE=1 RUST_BACKTRACE=1 cargo test --all --release --target-dir "$HC_TARGET_PREFIX"target "$1" -- --test-threads=${rust.test.threads};
   '';
+  
 }
