@@ -4,6 +4,8 @@ with pkgs;
 
 mkShell {
   buildInputs = [
+    binaryen
+    cmake
     curl
     git
     git-hub
@@ -14,6 +16,8 @@ mkShell {
     hn-rust-fmt
     hn-rust-fmt-check
     qt59.qmake
+    wabt
+    wasm-gc
     which
   ];
 }
