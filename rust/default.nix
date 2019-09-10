@@ -5,16 +5,6 @@ in
 rust //
 {
  buildInputs = []
- # https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/rust.section.md
- ++ [
-  (pkgs.rustChannelOfTargets "nightly" rust.nightly.date [ rust.wasm-target rust.generic-linux-target  ])
-  pkgs.binutils
-  pkgs.gcc
-  pkgs.gnumake
-  pkgs.openssl
-  pkgs.pkgconfig
-  pkgs.carnix
- ]
  ++ (pkgs.callPackage ./clippy { }).buildInputs
  ++ (pkgs.callPackage ./coverage { }).buildInputs
  ++ (pkgs.callPackage ./fmt { }).buildInputs
