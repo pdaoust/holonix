@@ -22,6 +22,34 @@ with final;
     hn-rust-flush
   '';
 
+  hc-rust-manifest-install = pkgs.writeShellScriptBin "hc-rust-manifest-install" ''
+    cargo install cargo-edit
+  '';
+
+  hc-rust-manifest-list-unpinned = pkgs.writeShellScriptBin "hc-rust-manifest-list-unpinned" ''
+    find . -type f \( -name "Cargo.toml" -or -name "Cargo.template.toml" \) | xargs cat | grep -Ev '=[0-9]+\.[0-9]+\.[0-9]+' | grep -E '[0-9]+' | grep -Ev '(version|edition|codegen-units|{ git = ".*", rev = "\w+" })' | cat
+  '';
+
+  hc-rust-manifest-set-ver = writeShellScriptBin "hc-rust-manifest-set-ver" ''
+    # node dist can mess with the process
+    hc-node-flush
+    find . -name "Cargo.toml" | xargs -I {} cargo upgrade "$1" --all --manifest-path {}
+  '';
+
+  hc-rust-manifest-test-ver = writeShellScriptBin "hc-rust-manifest-test-ver" ''
+    # node dists can mess with the process
+    hc-node-flush
+
+    # loop over all tomls
+    # find all possible upgrades
+    # ignore upgrades that are just unpinning themselves (=x.y.z will suggest x.y.z)
+    # | grep -vE 'v=([0-9]+\.[0-9]+\.[0-9]+) -> v\1'
+    echo "attempting to suggest new pinnable crate versions"
+    find . -name "Cargo.toml" | xargs -P "$NIX_BUILD_CORES" -I {} cargo upgrade --dry-run --allow-prerelease --all --manifest-path {} | grep -vE 'v=[0-9]+\.[0-9]+\.[0-9]+'
+
+    hc-rust-manifest-list-unpinned
+  '';
+
   hn-node-flush = writeShellScriptBin "hn-node-flush" ''
     echo "flushing node artifacts"
     find . -wholename "**/node_modules" | xargs -I {} rm -rf {};
@@ -77,5 +105,7 @@ with final;
     cargo fmt -- --check
   '';
 
-
+  hc-rust-test = pkgs.writeShellScriptBin "hc-rust-test" ''
+    hc-rust-wasm-compile && HC_SIMPLE_LOGGER_MUTE=1 RUST_BACKTRACE=1 cargo test --all --release --target-dir "$HC_TARGET_PREFIX"target "$1" -- --test-threads=${rust.test.threads};
+  '';
 }
