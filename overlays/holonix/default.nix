@@ -82,6 +82,18 @@ with final;
     hc-rust-coverage-install && hc-rust-coverage && bash <(curl -s https://codecov.io/bash);
   '';
 
+  hn-release-hook-preflight-manual = pkgs.writeShellScriptBin "hn-release-hook-preflight-manual" ''
+   echo
+   read -r -p "Are you sure you want to cut a new release based on the current config? [y/N] " response
+   case "$response" in
+    [yY][eE][sS]|[yY])
+    ;;
+    *)
+    exit 1
+    ;;
+   esac
+  '';
+
   hn-release-hook-version-rust = writeShellScriptBin name "hn-release-hook-version-rust" ''
     echo "bumping Cargo versions to ${config.release.version.current} in Cargo.toml"
     find . \
@@ -117,5 +129,5 @@ with final;
   hc-rust-test = pkgs.writeShellScriptBin "hc-rust-test" ''
     hc-rust-wasm-compile && HC_SIMPLE_LOGGER_MUTE=1 RUST_BACKTRACE=1 cargo test --all --release --target-dir "$HC_TARGET_PREFIX"target "$1" -- --test-threads=${rust.test.threads};
   '';
-  
+
 }
