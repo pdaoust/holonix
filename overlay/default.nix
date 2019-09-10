@@ -11,6 +11,12 @@ with final;
     holochain = lib.warn "holochain.holochain is deprecated, use holochain-conductor" holochain-conductor;
   };
 
+  hc-rust-coverage-install = pkgs.writeShellScriptBin "hc-rust-coverage-install" ''
+    if ! cargo --list | grep --quiet tarpaulin;
+    then RUSTFLAGS="--cfg procmacro2_semver_exempt" cargo install cargo-tarpaulin;
+    fi;
+  '';
+
   hn-flush = writeShellScriptBin "hn-flush" ''
     hn-node-flush
     hn-rust-flush
@@ -66,4 +72,5 @@ with final;
     echo "checking rust formatting"
     cargo fmt -- --check
   '';
+
 }
