@@ -94,6 +94,15 @@ with final;
    esac
   '';
 
+  hn-release-hook-version-readme = writeShellScriptBin name "hn-release-hook-version-readme" ''
+   echo "bumping versions from ${config.release.version.previous} to ${config.release.version.current} in readmes"
+   find . \
+    -iname "readme.md" \
+    -not -path "**/.git/**" \
+    -not -path "**/.cargo/**" | xargs -I {} \
+    sed -i 's/${config.release.version.previous}/${config.release.version.current}/g' {}
+ '';
+
   hn-release-hook-version-rust = writeShellScriptBin name "hn-release-hook-version-rust" ''
     echo "bumping Cargo versions to ${config.release.version.current} in Cargo.toml"
     find . \
