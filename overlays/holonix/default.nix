@@ -50,6 +50,10 @@ with final;
       -e holochain_core_types_derive
   '';
 
+  hc-rust-coverage-codecov = pkgs.writeShellScriptBin "hc-rust-coverage-codecov" ''
+    hc-rust-coverage-install && hc-rust-coverage && bash <(curl -s https://codecov.io/bash);
+  '';
+
   hn-rust-flush = writeShellScriptBin "hn-rust-flush" ''
     echo "flushing cargo cache from user home directory"
     rm -rf ~/.cargo/registry;
@@ -72,5 +76,6 @@ with final;
     echo "checking rust formatting"
     cargo fmt -- --check
   '';
+
 
 }
