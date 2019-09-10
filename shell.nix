@@ -16,6 +16,8 @@ mkShell {
     hn-rust-fmt
     hn-rust-fmt-check
     qt59.qmake
+    rust.packages.nightly.cargo
+    rust.packages.nightly.rustc
     wabt
     wasm-gc
     which
