@@ -5,6 +5,8 @@ with pkgs;
 mkShell {
   buildInputs = [
     binaryen
+    binutils
+    carnix
     cmake
     curl
     git
@@ -15,6 +17,8 @@ mkShell {
     hn-rust-flush
     hn-rust-fmt
     hn-rust-fmt-check
+    openssl
+    pkgconfig
     qt59.qmake
     rust.packages.nightly.cargo
     rust.packages.nightly.rustc
