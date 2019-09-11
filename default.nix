@@ -1,10 +1,30 @@
-let
-  holo-nixpkgs = fetchTarball {
-    url = "https://github.com/Holo-Host/holo-nixpkgs/archive/220c6890488f1211d9dc5e98e6ba2e5174302187.tar.gz";
-    sha256 = "03vw84rg6g3sd3b4krhkzk652hr6flqm4dhh4mh7v8w1wn0p695l";
-  };
-in
+{ pkgs ? import ./pkgs.nix {} }:
 
-{ ... } @ args: import holo-nixpkgs (args // {
-  overlays = [ (import ./overlays/holonix) ] ++ (args.overlays or []);
-})
+with pkgs;
+
+mkShell {
+  buildInputs = [
+    binaryen
+    binutils
+    carnix
+    cmake
+    coreutils
+    curl
+    git
+    git-hub
+    github-release
+    hn-node-flush
+    hn-rust-clippy
+    hn-rust-flush
+    hn-rust-fmt
+    hn-rust-fmt-check
+    openssl
+    pkgconfig
+    qt59.qmake
+    rust.packages.nightly.cargo
+    rust.packages.nightly.rustc
+    wabt
+    wasm-gc
+    which
+  ];
+}
