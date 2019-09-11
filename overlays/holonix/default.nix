@@ -18,8 +18,8 @@ with final;
   '';
 
   hn-flush = writeShellScriptBin "hn-flush" ''
-    hn-node-flush
-    hn-rust-flush
+    ${hn-node-flush}/bin/hn-node-flush
+    ${hn-rust-flush}/bin/hn-rust-flush
   '';
 
   hc-rust-manifest-install = pkgs.writeShellScriptBin "hc-rust-manifest-install" ''
