@@ -14,14 +14,6 @@ let
 
       lto = "thinlto";
 
-      # significantly improves cache hit rate when recompiling
-      # much more reliable than default timestamp based compiler caching
-      # often (e.g. on CI/windows) we lose timestamp info from the OS
-      # achieves cache hits on freshly downloaded rust crates!
-      # highly sensitive to changes in compiler environment variables
-      # incompatible with some lto options
-      incremental = "1";
-
       # the compiler will split each file into this many chunks and process
       # each in parallel.
       # compilation process is faster with more units but diminishing returns

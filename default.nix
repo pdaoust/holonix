@@ -3,6 +3,8 @@
 with pkgs;
 
 mkShell {
+  CARGO_INCREMENTAL = 1;
+
   buildInputs = [
     binaryen
     binutils
