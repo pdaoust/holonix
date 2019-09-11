@@ -8,6 +8,7 @@ mkShell {
     binutils
     carnix
     cmake
+    coreutils
     curl
     git
     git-hub

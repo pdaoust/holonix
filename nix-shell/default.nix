@@ -57,10 +57,7 @@
  export TMPDIR=$TMP
  '';
 
- buildInputs = [
-  # for mktemp
-  pkgs.coreutils
- ]
+ buildInputs = []
  ++ (pkgs.callPackage ./flush { }).buildInputs
  ++ app-spec-cluster.buildInputs
  ++ darwin.buildInputs
