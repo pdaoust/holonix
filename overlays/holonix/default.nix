@@ -27,7 +27,12 @@ with final;
   '';
 
   hc-rust-manifest-list-unpinned = pkgs.writeShellScriptBin "hc-rust-manifest-list-unpinned" ''
-    find . -type f \( -name "Cargo.toml" -or -name "Cargo.template.toml" \) | xargs cat | grep -Ev '=[0-9]+\.[0-9]+\.[0-9]+' | grep -E '[0-9]+' | grep -Ev '(version|edition|codegen-units|{ git = ".*", rev = "\w+" })' | cat
+    find . -type f \( -name "Cargo.toml" -or -name "Cargo.template.toml" \) \
+      | xargs cat \
+      | grep -Ev '=[0-9]+\.[0-9]+\.[0-9]+' \
+      | grep -E '[0-9]+' \
+      | grep -Ev '(version|edition|codegen-units|{ git = ".*", rev = "\w+" })' \
+      | cat
   '';
 
   hc-rust-manifest-set-ver = writeShellScriptBin "hc-rust-manifest-set-ver" ''
