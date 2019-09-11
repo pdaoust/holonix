@@ -1,24 +1,5 @@
 let
   base = {
-
-    # our rust nightly version
-    # find a version that hits clippy and fmt support
-    # https://rust-lang.github.io/rustup-components-history/
-    # read more about version management
-    # https://hackmd.io/ShgxFyDVR52gnqK7oQsuiQ
-    nightly = {
-      date = "2019-07-14";
-    };
-
-    # the target used by rust when compiling wasm
-    wasm-target = "wasm32-unknown-unknown";
-
-    # the target used by all linux when we don't have a specific target
-    generic-linux-target = "x86_64-unknown-linux-gnu";
-
-    # the target used by all mac
-    generic-mac-target = "x86_64-apple-darwin";
-
     # set this to "info" to debug compiler cache misses due to fingerprinting
     # @see https://github.com/rust-lang/cargo/issues/4961#issuecomment-359189913
     log = "warnings";
@@ -28,7 +9,6 @@ let
     backtrace = "1";
 
     compile = {
-
       # @see https://github.com/rust-unofficial/patterns/blob/master/anti_patterns/deny-warnings.md
       deny = "warnings";
 
@@ -64,30 +44,20 @@ let
       # s = size
       # z = size min
       optimization-level = "z";
-
     };
-
   };
 
   derived = {
-
-    nightly = base.nightly // {
-      version = "nightly-${base.nightly.date}";
-    };
-
     compile = base.compile // {
       # @see https://llogiq.github.io/2017/06/01/perf-pitfalls.html
       flags ="-D ${base.compile.deny} -Z external-macro-backtrace -Z ${base.compile.lto} -C codegen-units=${base.compile.codegen-units} -C opt-level=${base.compile.optimization-level}";
     };
 
     test = {
-
       # test threads can be the same as top level build parallelization
       threads = base.compile.jobs;
-
     };
-
   };
-
 in
+
 base // derived
